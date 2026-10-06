@@ -1,6 +1,7 @@
 // ==============================================================================
 // CampusNav AI - Acropolis Institute of Technology & Research (AITR)
-// Complete Campus Dataset & Navigation Engine (Calibrated from real map & photos)
+// Complete Campus Dataset & Dual 2D/3D Navigation Engine
+// Incorporating Detailed Floor & Departmental Specifications
 // ==============================================================================
 
 const locations = [
@@ -26,33 +27,12 @@ const locations = [
     details: "Primary entry point for students, faculty, and visitors. Security cabin and campus guidelines board are located here."
   },
   {
-    id: "crosswalk",
-    name: "Entry Crosswalk & Admin Wing",
-    category: "Offices",
-    categoryLabel: "Campus Hub",
-    icon: "🚶",
-    meta: "Pedestrian Crosswalk • Tinted Glass Facade",
-    block: "Entry Hub",
-    floor: "Ground",
-    distance: 40,
-    x: 68,
-    y: 86,
-    photo: "assets/tour/02-gate-crosswalk.jpg",
-    photoCaption: "Pedestrian crosswalk leading past admin building",
-    directions: [
-      "Walk 40 meters straight from the Main Gate.",
-      "Cross the white zebra pedestrian crossing.",
-      "The tinted-glass facade building is on your right; continue along the main road."
-    ],
-    details: "Transition zone from the main security gate into the central academic road."
-  },
-  {
     id: "admission",
     name: "Admission Cell",
     category: "Offices",
     categoryLabel: "Administration",
     icon: "🪪",
-    meta: "Ground Floor • Near Block 1 Entrance",
+    meta: "Block 1 • Ground Floor • Near Entrance",
     block: "Block 1",
     floor: "Ground Floor",
     distance: 85,
@@ -63,9 +43,30 @@ const locations = [
     directions: [
       "From the Main Gate, walk ~85m along the main avenue.",
       "Take the gentle left branch towards the first academic complex.",
-      "The Admission Cell is located on the ground floor at the front of Block 1."
+      "The Admission Cell is located on the ground floor at the front of Block 1 on the left."
     ],
-    details: "First point of contact for new students, fee queries, enrollment, and verification. Dedicated counseling desks available."
+    details: "First point of contact for new student admissions, fee verification, registration, and student counseling."
+  },
+  {
+    id: "civil",
+    name: "Civil Engineering Department",
+    category: "Departments",
+    categoryLabel: "Department",
+    icon: "🏗️",
+    meta: "Block 1 • Ground Floor",
+    block: "Block 1",
+    floor: "Ground Floor",
+    distance: 95,
+    x: 54,
+    y: 77,
+    photo: "assets/tour/07-block1-entrance.jpg",
+    photoCaption: "Block 1 Ground Floor Entrance",
+    directions: [
+      "Enter Block 1 through the main flag courtyard.",
+      "Civil Engineering Department is situated right on the Ground Floor.",
+      "Look for the Civil HOD cabin and structural engineering display."
+    ],
+    details: "Civil Engineering Department offices, Surveying & Geotechnical labs, concrete technology center, and departmental library."
   },
   {
     id: "block1",
@@ -73,7 +74,7 @@ const locations = [
     category: "Blocks",
     categoryLabel: "Academic Block",
     icon: "🏢",
-    meta: "First Year Engineering • Dean Office • Flag Courtyard",
+    meta: "Civil Dept (Ground) • Central Library (1st) • First Year Classes (1st & 2nd)",
     block: "Block 1",
     floor: "Ground - 3rd Floor",
     distance: 100,
@@ -83,10 +84,31 @@ const locations = [
     photoCaption: "Block 1 Entrance with Indian Flag & Sports billboard",
     directions: [
       "Walk ~100m from the Main Gate following the avenue.",
-      "Look for the prominent 'SPORTS ACHIEVEMENTS' monolith board.",
-      "Enter through the paved courtyard with the Indian National Flagpole into 'BLOCK - 1'."
+      "Look for the prominent 'SPORTS ACHIEVEMENTS' monolith board and Indian Flagpole.",
+      "Enter through the paved courtyard into 'BLOCK - 1'."
     ],
-    details: "Houses First Year engineering classrooms, fundamental engineering labs, department offices, and faculty cabins."
+    details: "Houses Civil Engineering on Ground Floor, Central Library on 1st Floor, and First Year Engineering lecture halls on upper floors."
+  },
+  {
+    id: "firstyear",
+    name: "First Year Engineering Classes",
+    category: "Departments",
+    categoryLabel: "Classrooms",
+    icon: "🎒",
+    meta: "Block 1 • 1st & 2nd Floors",
+    block: "Block 1",
+    floor: "1st & 2nd Floor",
+    distance: 110,
+    x: 51,
+    y: 74,
+    photo: "assets/tour/07-block1-entrance.jpg",
+    photoCaption: "Block 1 Upper Floors for Freshers",
+    directions: [
+      "Enter Block 1 through the main entrance.",
+      "Ascend the main staircase to the 1st and 2nd Floors.",
+      "Classrooms for Sections A through H are arranged along the central corridor."
+    ],
+    details: "Dedicated classrooms for all first-year B.Tech students (Physics, Chemistry, Maths, Engineering Graphics, Basic Mechanical & Electrical)."
   },
   {
     id: "library",
@@ -94,7 +116,7 @@ const locations = [
     category: "Facilities",
     categoryLabel: "Library",
     icon: "📚",
-    meta: "1st Floor • Directly Above Admission Cell in Block 1",
+    meta: "Block 1 • 1st Floor (Directly Above Admission Cell)",
     block: "Block 1",
     floor: "1st Floor",
     distance: 120,
@@ -107,7 +129,7 @@ const locations = [
       "Enter the building and ascend the main staircase to the 1st Floor.",
       "The Central Library entrance is situated directly above the Admission Cell."
     ],
-    details: "Comprehensive academic repository with over 50,000+ volumes, reading halls, digital e-library stations, and journal archives."
+    details: "State-of-the-art campus library with 50,000+ technical volumes, digital reading terminals, IEEE access, quiet study zones, and journal repositories."
   },
   {
     id: "block2",
@@ -115,7 +137,7 @@ const locations = [
     category: "Blocks",
     categoryLabel: "Academic Block",
     icon: "🏢",
-    meta: "CSE • IT • Advanced Computer Labs",
+    meta: "Mechanical (Ground) • CS Labs (Ground) • Electrical & CSE (1st)",
     block: "Block 2",
     floor: "Ground - 3rd Floor",
     distance: 165,
@@ -128,7 +150,70 @@ const locations = [
       "Look for the dedicated terracotta-paved pathway lined with green potted plants.",
       "Enter under the official 'BLOCK - II' header sign."
     ],
-    details: "Core hub for Computer Science & Engineering, Information Technology, AI & Data Science labs, and seminar halls."
+    details: "Core engineering block housing Mechanical Dept and Computer Science Labs on Ground Floor, Electrical & CSE on 1st Floor, and AI Labs on 2nd Floor."
+  },
+  {
+    id: "mechanical",
+    name: "Mechanical Engineering Department",
+    category: "Departments",
+    categoryLabel: "Department",
+    icon: "⚙️",
+    meta: "Block II • Ground Floor",
+    block: "Block 2",
+    floor: "Ground Floor",
+    distance: 160,
+    x: 61,
+    y: 69,
+    photo: "assets/tour/09-block2-entrance.jpg",
+    photoCaption: "Block II Ground Floor Entrance",
+    directions: [
+      "Enter Block II via the red terracotta garden walkway.",
+      "Mechanical Engineering Department offices and labs are on the Ground Floor.",
+      "Workshops, CAD/CAM labs, and Thermodynamics facilities are located here."
+    ],
+    details: "Features manufacturing workshops, CNC machines, fluid mechanics lab, thermodynamics section, and department faculty cabins."
+  },
+  {
+    id: "cslabs",
+    name: "Computer Science Labs (Labs 1–8)",
+    category: "Labs",
+    categoryLabel: "Laboratory",
+    icon: "🧪",
+    meta: "Block II • Ground Floor",
+    block: "Block 2",
+    floor: "Ground Floor",
+    distance: 170,
+    x: 59,
+    y: 68,
+    photo: "assets/tour/09-block2-entrance.jpg",
+    photoCaption: "Computing labs inside Block II",
+    directions: [
+      "Enter Block II on the Ground Floor.",
+      "Turn right along the main lab corridor.",
+      "CS Labs 1 through 8 are arranged consecutively with workstation terminals."
+    ],
+    details: "Equipped with high-speed internet, Linux/Windows workstations, compiler tools, Python/Java environments, and hackathon testbeds."
+  },
+  {
+    id: "electrical",
+    name: "Electrical Engineering Department",
+    category: "Departments",
+    categoryLabel: "Department",
+    icon: "⚡",
+    meta: "Block II • 1st Floor",
+    block: "Block 2",
+    floor: "1st Floor",
+    distance: 180,
+    x: 62,
+    y: 67,
+    photo: "assets/tour/09-block2-entrance.jpg",
+    photoCaption: "Block II 1st Floor",
+    directions: [
+      "Enter Block II via the terracotta walkway.",
+      "Ascend to the 1st Floor using the central staircase.",
+      "Electrical Engineering Department is located on the 1st floor corridor."
+    ],
+    details: "Power systems lab, electrical machines, control engineering, and instrumentation labs alongside faculty advisory rooms."
   },
   {
     id: "cse",
@@ -136,41 +221,19 @@ const locations = [
     category: "Departments",
     categoryLabel: "Department",
     icon: "💻",
-    meta: "Block II • Department Office & Faculty Cabins",
+    meta: "Block II • 1st & 2nd Floors",
     block: "Block 2",
     floor: "1st & 2nd Floor",
-    distance: 180,
+    distance: 185,
     x: 60,
-    y: 67,
+    y: 66,
     photo: "assets/tour/09-block2-entrance.jpg",
-    photoCaption: "Located inside Block II",
+    photoCaption: "CSE department located in Block II",
     directions: [
-      "Enter Block II via the terracotta garden walkway.",
-      "Take the central stairs to the 1st or 2nd floor.",
+      "Enter Block II and ascend to the 1st or 2nd floor.",
       "Follow the wall signage for CSE HOD cabin, faculty rooms, and student sections."
     ],
     details: "Largest department at AITR. Includes specialized computing clusters, faculty mentors, and project labs."
-  },
-  {
-    id: "lab",
-    name: "Advanced Computer Labs",
-    category: "Labs",
-    categoryLabel: "Laboratory",
-    icon: "🧪",
-    meta: "High-Performance Computing • Cloud & AI Labs",
-    block: "Block 2",
-    floor: "Ground & 1st Floor",
-    distance: 175,
-    x: 58,
-    y: 68,
-    photo: "assets/tour/09-block2-entrance.jpg",
-    photoCaption: "Computing labs inside Block II",
-    directions: [
-      "Enter Block II.",
-      "Proceed down the main corridor.",
-      "Labs 1 through 8 are arranged on the ground and first floor with biometric entry."
-    ],
-    details: "Equipped with high-speed internet, Linux/Windows workstations, GPU computing for AI, and hackathon test environments."
   },
   {
     id: "block3",
@@ -178,7 +241,7 @@ const locations = [
     category: "Blocks",
     categoryLabel: "Academic Block",
     icon: "🏢",
-    meta: "Core Engineering • Seminar Halls • Auditorium",
+    meta: "Core Labs (Ground) • IT Department (1st & 2nd Floors)",
     block: "Block 3",
     floor: "Ground - 3rd Floor",
     distance: 220,
@@ -191,7 +254,28 @@ const locations = [
       "Keep the CDC Lawn on your left.",
       "Block 3 is directly ahead on your right with spacious verandas."
     ],
-    details: "Hosts Electronics, Mechanical, Civil departments, conference rooms, and major lecture theaters."
+    details: "Houses Core Engineering Labs on Ground Floor and the complete Information Technology (IT) Department on the 1st & 2nd Floors."
+  },
+  {
+    id: "itdept",
+    name: "Information Technology (IT) Department",
+    category: "Departments",
+    categoryLabel: "Department",
+    icon: "🌐",
+    meta: "Block 3 • 1st Floor & 2nd Floor",
+    block: "Block 3",
+    floor: "1st & 2nd Floor",
+    distance: 235,
+    x: 65,
+    y: 59,
+    photo: "assets/tour/08-avenue-to-block2.jpg",
+    photoCaption: "Block 3 IT Department",
+    directions: [
+      "Reach Block 3 situated alongside CDC Lawn.",
+      "Take the central stairs up to the 1st or 2nd Floor.",
+      "The entire IT Department, IT classrooms, and software labs span both floors."
+    ],
+    details: "Specialized in cloud computing, cybersecurity, web technologies, software engineering, and industry collaboration programs."
   },
   {
     id: "cdc",
@@ -298,26 +382,6 @@ const locations = [
     details: "Trendy campus coffee shop serving brewed coffee, shakes, burgers, pastries, and quick grab-and-go snacks."
   },
   {
-    id: "ground",
-    name: "Athletics & Cricket Ground",
-    category: "Sports",
-    categoryLabel: "Sports Field",
-    icon: "⚽",
-    meta: "Full-Size Cricket & Football Ground",
-    block: "East Perimeter",
-    floor: "Outdoors",
-    distance: 360,
-    x: 78,
-    y: 31,
-    photo: "assets/tour/04-central-avenue.jpg",
-    photoCaption: "Main sports ground on the eastern perimeter",
-    directions: [
-      "Walk past AcroCafe and take the eastern connecting road.",
-      "The large open sports ground opens up on the right side."
-    ],
-    details: "Spacious multi-sport field hosting annual sports fests, inter-college cricket, football, and athletics tournaments."
-  },
-  {
     id: "management",
     name: "Faculty of Management & Research (AFMR)",
     category: "Departments",
@@ -421,7 +485,7 @@ const tourStops = [
   },
   {
     title: "7. Academic Block-1 Entrance",
-    desc: "Courtyard with Indian National Flag, Admission Cell on Ground Floor, Central Library on 1st Floor.",
+    desc: "Courtyard with Indian National Flag. Civil Dept on Ground Floor, Central Library on 1st Floor, First Year Classes above.",
     img: "assets/tour/07-block1-entrance.jpg",
     tag: "Block 1 & Library"
   },
@@ -433,20 +497,21 @@ const tourStops = [
   },
   {
     title: "9. Academic Block-II Entrance",
-    desc: "Dedicated red-terracotta tiled path with potted plants leading to CSE & IT labs.",
+    desc: "Terracotta garden path. Mechanical & CS Labs on Ground Floor, Electrical on 1st Floor.",
     img: "assets/tour/09-block2-entrance.jpg",
-    tag: "Block II (CSE/IT)"
+    tag: "Block II (Mech/CS/EE)"
   }
 ];
 
-// State
+// Global State
 let selectedLocation = null;
 let currentFilter = "all";
-let mapMode = "clean"; // 'clean' or 'annotated'
+let mapMode = "3d"; // '3d', 'clean', or 'annotated'
 let currentTourIndex = 0;
 let mapZoom = 1;
+let campus3d = null;
 
-// Elements
+// DOM Elements
 const gridEl = document.getElementById("locationGrid");
 const mapMarkersEl = document.getElementById("mapMarkers");
 const searchInput = document.getElementById("searchInput");
@@ -464,8 +529,18 @@ document.addEventListener("DOMContentLoaded", () => {
   initMapControls();
   initPhotoTour();
   initAiAssistant();
-  
-  // Select Block 1 by default for demonstration
+
+  // Initialize 3D Engine
+  if (window.Campus3D) {
+    try {
+      campus3d = new window.Campus3D("campus3dContainer");
+      window.campus3d = campus3d;
+    } catch (e) {
+      console.warn("3D Engine init warning:", e);
+    }
+  }
+
+  // Select Block 1 by default
   selectLocation("block1", false);
 });
 
@@ -497,7 +572,7 @@ function renderLocationCards(filteredList = null) {
   });
 }
 
-// Render markers on the interactive map
+// Render markers on the 2D interactive map
 function renderMapMarkers() {
   mapMarkersEl.innerHTML = locations.map(loc => `
     <button class="map-pin ${selectedLocation && selectedLocation.id === loc.id ? 'selected' : ''}" 
@@ -517,8 +592,8 @@ function renderMapMarkers() {
   });
 }
 
-// Select a location and calculate route
-function selectLocation(id, shouldScroll = false) {
+// Select a location, focus 3D view and calculate 2D route
+window.selectLocation = function(id, shouldScroll = false) {
   const loc = locations.find(l => l.id === id);
   if (!loc) return;
   selectedLocation = loc;
@@ -528,9 +603,9 @@ function selectLocation(id, shouldScroll = false) {
   document.getElementById("destBlock").textContent = `${loc.block} • ${loc.floor}`;
   document.getElementById("destDetails").textContent = loc.details;
   document.getElementById("destDistance").textContent = `${loc.distance} m`;
-  
+
   const walkMins = Math.max(1, Math.round(loc.distance / 65));
-  document.getElementById("destWalkTime").textContent = `${walkMins} min`;
+  document.getElementById("destWalkTime").textContent = `${walkMins} min walk`;
   document.getElementById("destSteps").textContent = `${Math.round(loc.distance * 1.35)}`;
 
   // Render Step-by-Step Directions
@@ -552,16 +627,19 @@ function selectLocation(id, shouldScroll = false) {
     photoPreview.style.display = "none";
   }
 
-  // Draw Route SVG on Map
-  // Starting point: Main Gate (x: 74, y: 91)
+  // Draw 2D Route on Map
   drawRouteLine(74, 91, loc.x, loc.y);
 
-  // Highlight marker
+  // Focus 3D Viewport if 3D Engine is active
+  if (campus3d) {
+    const bId = loc.id.startsWith("block") ? loc.id : (loc.block.toLowerCase().replace(/ /g, ""));
+    campus3d.focusBuilding(bId || loc.id);
+  }
+
+  // Highlight markers and cards
   document.querySelectorAll(".map-pin").forEach(p => {
     p.classList.toggle("selected", p.dataset.id === id);
   });
-
-  // Highlight card
   document.querySelectorAll(".loc-card").forEach(c => {
     c.classList.toggle("active", c.dataset.id === id);
   });
@@ -569,36 +647,23 @@ function selectLocation(id, shouldScroll = false) {
   if (shouldScroll) {
     document.getElementById("mapSection").scrollIntoView({ behavior: "smooth", block: "start" });
   }
-}
+};
 
-// Generate realistic road-following polyline coordinates
+// Generate realistic road-following polyline coordinates for 2D map
 function drawRouteLine(startX, startY, endX, endY) {
-  // If destination is the gate itself
   if (startX === endX && startY === endY) {
     routeSvgLine.setAttribute("points", "");
     return;
   }
 
-  // Generate intermediate waypoint along the central avenue for realistic road bends
   const waypoints = [];
   waypoints.push(`${startX * 7.68},${startY * 10.24}`);
 
-  // Route passes through the entrance curve
-  if (endY < 85) {
-    waypoints.push(`${67 * 7.68},${85 * 10.24}`);
-  }
-  // Route continues along central road
-  if (endY < 72) {
-    waypoints.push(`${62 * 7.68},${73 * 10.24}`);
-  }
-  // Route to north side past CDC Lawn
-  if (endY < 55) {
-    waypoints.push(`${63 * 7.68},${58 * 10.24}`);
-  }
+  if (endY < 85) waypoints.push(`${67 * 7.68},${85 * 10.24}`);
+  if (endY < 72) waypoints.push(`${62 * 7.68},${73 * 10.24}`);
+  if (endY < 55) waypoints.push(`${63 * 7.68},${58 * 10.24}`);
 
-  // Final destination coordinate
   waypoints.push(`${endX * 7.68},${endY * 10.24}`);
-
   routeSvgLine.setAttribute("points", waypoints.join(" "));
 }
 
@@ -613,9 +678,9 @@ function initSearch() {
     }
 
     const matches = locations.filter(l => {
-      const haystack = `${l.name} ${l.category} ${l.meta} ${l.block} ${l.details}`.toLowerCase();
+      const haystack = `${l.name} ${l.category} ${l.meta} ${l.block} ${l.floor} ${l.details}`.toLowerCase();
       return haystack.includes(val);
-    }).slice(0, 5);
+    }).slice(0, 6);
 
     if (matches.length > 0) {
       searchSuggestions.innerHTML = matches.map(m => `
@@ -638,22 +703,19 @@ function initSearch() {
         });
       });
     } else {
-      searchSuggestions.innerHTML = `<div class="suggestion-empty">No direct matches. Press Enter or ask the AI Assistant.</div>`;
+      searchSuggestions.innerHTML = `<div class="suggestion-empty">No direct match. Press Enter or ask the AI Assistant.</div>`;
       searchSuggestions.style.display = "block";
     }
   });
 
   searchInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      performSmartSearch(searchInput.value);
-    }
+    if (e.key === "Enter") performSmartSearch(searchInput.value);
   });
 
   document.getElementById("searchBtn").addEventListener("click", () => {
     performSmartSearch(searchInput.value);
   });
 
-  // Hide suggestions when clicking outside
   document.addEventListener("click", (e) => {
     if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
       searchSuggestions.style.display = "none";
@@ -664,39 +726,39 @@ function initSearch() {
 function performSmartSearch(query) {
   const q = query.trim().toLowerCase();
   if (!q) {
-    showToast("Type a destination like 'CSE', 'Library', or 'Block 2'");
+    showToast("Type a destination like 'Civil', 'Mechanical', 'Electrical', or 'IT'");
     return;
   }
 
-  // Exact matching
   let found = locations.find(l => l.name.toLowerCase().includes(q) || l.id.toLowerCase() === q);
 
-  // Intelligent synonym resolution
+  // Accurate departmental & floor resolution
   if (!found) {
-    if (q.includes("library") || q.includes("book") || q.includes("study")) found = locations.find(l => l.id === "library");
-    else if (q.includes("cse") || q.includes("computer science") || q.includes("coding")) found = locations.find(l => l.id === "cse");
-    else if (q.includes("admission") || q.includes("fee") || q.includes("form") || q.includes("counseling")) found = locations.find(l => l.id === "admission");
-    else if (q.includes("block 1") || q.includes("first block") || q.includes("b1")) found = locations.find(l => l.id === "block1");
-    else if (q.includes("block 2") || q.includes("second block") || q.includes("b2")) found = locations.find(l => l.id === "block2");
-    else if (q.includes("block 3") || q.includes("third block") || q.includes("b3")) found = locations.find(l => l.id === "block3");
-    else if (q.includes("canteen") || q.includes("food") || q.includes("lunch") || q.includes("eat")) found = locations.find(l => l.id === "canteen");
-    else if (q.includes("cafe") || q.includes("coffee") || q.includes("tea") || q.includes("acrocafe")) found = locations.find(l => l.id === "cafe");
+    if (q.includes("civil")) found = locations.find(l => l.id === "civil");
+    else if (q.includes("mechanical") || q.includes("workshop")) found = locations.find(l => l.id === "mechanical");
+    else if (q.includes("electrical") || q.includes("ee")) found = locations.find(l => l.id === "electrical");
+    else if (q.includes("it") || q.includes("information technology")) found = locations.find(l => l.id === "itdept");
+    else if (q.includes("first year") || q.includes("fresher") || q.includes("1st year")) found = locations.find(l => l.id === "firstyear");
+    else if (q.includes("cs lab") || q.includes("lab 1") || q.includes("computer lab")) found = locations.find(l => l.id === "cslabs");
+    else if (q.includes("cse") || q.includes("computer science")) found = locations.find(l => l.id === "cse");
+    else if (q.includes("library") || q.includes("book")) found = locations.find(l => l.id === "library");
+    else if (q.includes("admission") || q.includes("counseling")) found = locations.find(l => l.id === "admission");
+    else if (q.includes("block 1") || q.includes("b1")) found = locations.find(l => l.id === "block1");
+    else if (q.includes("block 2") || q.includes("b2")) found = locations.find(l => l.id === "block2");
+    else if (q.includes("block 3") || q.includes("b3")) found = locations.find(l => l.id === "block3");
+    else if (q.includes("canteen") || q.includes("food") || q.includes("lunch")) found = locations.find(l => l.id === "canteen");
+    else if (q.includes("cafe") || q.includes("coffee") || q.includes("acrocafe")) found = locations.find(l => l.id === "cafe");
     else if (q.includes("basketball") || q.includes("court")) found = locations.find(l => l.id === "basketball");
-    else if (q.includes("sports") || q.includes("gym") || q.includes("badminton")) found = locations.find(l => l.id === "sports");
-    else if (q.includes("ground") || q.includes("cricket") || q.includes("football")) found = locations.find(l => l.id === "ground");
+    else if (q.includes("sports") || q.includes("gym")) found = locations.find(l => l.id === "sports");
     else if (q.includes("transport") || q.includes("bus")) found = locations.find(l => l.id === "transport");
-    else if (q.includes("management") || q.includes("mba") || q.includes("bba")) found = locations.find(l => l.id === "management");
-    else if (q.includes("gate") || q.includes("entry") || q.includes("exit")) found = locations.find(l => l.id === "gate");
-    else if (q.includes("lawn") || q.includes("cdc") || q.includes("garden")) found = locations.find(l => l.id === "cdc");
-    else if (q.includes("lab")) found = locations.find(l => l.id === "lab");
   }
 
   searchSuggestions.style.display = "none";
   if (found) {
     selectLocation(found.id, true);
-    showToast(`Found destination: ${found.name}`);
+    showToast(`Found: ${found.name} (${found.block} • ${found.floor})`);
   } else {
-    showToast(`No exact location found for "${query}". Opening AI Assistant...`);
+    showToast(`Searching AI Assistant for "${query}"...`);
     openAiAssistantWithQuery(query);
   }
 }
@@ -713,8 +775,54 @@ function initCategoryFilters() {
   });
 }
 
-// Map view switcher & zoom
+// View switcher (3D Digital Twin ↔ 2D Map) & 3D Floor Slicer controls
 function initMapControls() {
+  const view3dContainer = document.getElementById("view3dContainer");
+  const view2dContainer = document.getElementById("view2dContainer");
+  const switch3dBtn = document.getElementById("switch3dBtn");
+  const switch2dBtn = document.getElementById("switch2dBtn");
+
+  if (switch3dBtn && switch2dBtn) {
+    switch3dBtn.addEventListener("click", () => {
+      switch3dBtn.classList.add("active");
+      switch2dBtn.classList.remove("active");
+      view3dContainer.style.display = "block";
+      view2dContainer.style.display = "none";
+      if (campus3d) campus3d.onResize();
+      showToast("🎮 3D Digital Twin Active - Use mouse to rotate & zoom");
+    });
+
+    switch2dBtn.addEventListener("click", () => {
+      switch2dBtn.classList.add("active");
+      switch3dBtn.classList.remove("active");
+      view3dContainer.style.display = "none";
+      view2dContainer.style.display = "block";
+      showToast("🗺️ 2D Satellite Navigation Active");
+    });
+  }
+
+  // 3D Floor Level Slicer Buttons
+  document.querySelectorAll(".floor-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".floor-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const level = btn.dataset.level;
+      if (campus3d) {
+        campus3d.setFloorLevel(level);
+        showToast(`3D Floor Filter: ${btn.textContent.trim()}`);
+      }
+    });
+  });
+
+  // 3D Camera Presets
+  const reset3dBtn = document.getElementById("reset3dBtn");
+  if (reset3dBtn) {
+    reset3dBtn.addEventListener("click", () => {
+      if (campus3d) campus3d.resetCamera();
+    });
+  }
+
+  // 2D Map Toggle
   const toggleMapBtn = document.getElementById("toggleMapModeBtn");
   if (toggleMapBtn) {
     toggleMapBtn.addEventListener("click", () => {
@@ -732,16 +840,23 @@ function initMapControls() {
     });
   }
 
-  document.getElementById("zoomInBtn").addEventListener("click", () => {
-    mapZoom = Math.min(1.5, mapZoom + 0.15);
-    campusMapImg.style.transform = `scale(${mapZoom})`;
-  });
+  // 2D Zoom
+  const zoomInBtn = document.getElementById("zoomInBtn");
+  const zoomOutBtn = document.getElementById("zoomOutBtn");
+  if (zoomInBtn) {
+    zoomInBtn.addEventListener("click", () => {
+      mapZoom = Math.min(1.5, mapZoom + 0.15);
+      campusMapImg.style.transform = `scale(${mapZoom})`;
+    });
+  }
+  if (zoomOutBtn) {
+    zoomOutBtn.addEventListener("click", () => {
+      mapZoom = Math.max(1, mapZoom - 0.15);
+      campusMapImg.style.transform = `scale(${mapZoom})`;
+    });
+  }
 
-  document.getElementById("zoomOutBtn").addEventListener("click", () => {
-    mapZoom = Math.max(1, mapZoom - 0.15);
-    campusMapImg.style.transform = `scale(${mapZoom})`;
-  });
-
+  // Actions
   document.getElementById("startNavBtn").addEventListener("click", () => {
     if (selectedLocation) {
       showToast(`Navigation active! Follow the cyan path towards ${selectedLocation.name}.`);
@@ -761,28 +876,22 @@ function initPhotoTour() {
   renderTourSlide(0);
 
   document.getElementById("tourPrevBtn").addEventListener("click", () => {
-    if (currentTourIndex > 0) {
-      renderTourSlide(currentTourIndex - 1);
-    }
+    if (currentTourIndex > 0) renderTourSlide(currentTourIndex - 1);
   });
 
   document.getElementById("tourNextBtn").addEventListener("click", () => {
-    if (currentTourIndex < tourStops.length - 1) {
-      renderTourSlide(currentTourIndex + 1);
-    }
+    if (currentTourIndex < tourStops.length - 1) renderTourSlide(currentTourIndex + 1);
   });
 }
 
 function renderTourSlide(index) {
   currentTourIndex = index;
   const stop = tourStops[index];
-  
   document.getElementById("tourImg").src = stop.img;
   document.getElementById("tourTitle").textContent = stop.title;
   document.getElementById("tourDesc").textContent = stop.desc;
   document.getElementById("tourTag").textContent = stop.tag;
   document.getElementById("tourIndicator").textContent = `${index + 1} of ${tourStops.length}`;
-
   document.getElementById("tourPrevBtn").disabled = index === 0;
   document.getElementById("tourNextBtn").disabled = index === tourStops.length - 1;
 }
@@ -791,29 +900,19 @@ function renderTourSlide(index) {
 function initAiAssistant() {
   const modal = document.getElementById("aiModal");
   const openBtn = document.getElementById("openAiBtn");
-  const heroAiBtn = document.getElementById("heroAiBtn");
   const closeBtn = document.getElementById("closeAiBtn");
   const sendBtn = document.getElementById("aiSendBtn");
   const inputEl = document.getElementById("aiInput");
-  const chatMessages = document.getElementById("aiChatMessages");
 
-  const openModal = () => {
-    modal.classList.add("open");
-    inputEl.focus();
-  };
-
-  const closeModal = () => {
-    modal.classList.remove("open");
-  };
+  const openModal = () => { modal.classList.add("open"); inputEl.focus(); };
+  const closeModal = () => { modal.classList.remove("open"); };
 
   if (openBtn) openBtn.addEventListener("click", openModal);
-  if (heroAiBtn) heroAiBtn.addEventListener("click", openModal);
   if (closeBtn) closeBtn.addEventListener("click", closeModal);
 
-  // Quick prompt chips
   document.querySelectorAll(".quick-chip").forEach(chip => {
     chip.addEventListener("click", () => {
-      inputEl.value = chip.textContent.replace(/[✦🤖📍🍴📚]/g, "").trim();
+      inputEl.value = chip.textContent.replace(/[✦🤖📍🍴📚🏗️⚙️⚡🌐]/g, "").trim();
       handleAiSubmit();
     });
   });
@@ -824,14 +923,12 @@ function initAiAssistant() {
     appendUserMessage(text);
     inputEl.value = "";
 
-    // Show typing indicator
     const typingId = showTypingIndicator();
-
     setTimeout(() => {
       removeTypingIndicator(typingId);
       const reply = generateAiReply(text);
       appendAssistantMessage(reply.text, reply.action);
-    }, 600);
+    }, 550);
   };
 
   sendBtn.addEventListener("click", handleAiSubmit);
@@ -853,13 +950,13 @@ function appendAssistantMessage(text, action = null) {
   const container = document.getElementById("aiChatMessages");
   const div = document.createElement("div");
   div.className = "chat-msg bot-msg";
-  
+
   let actionHtml = "";
   if (action && action.locId) {
     actionHtml = `
       <div class="msg-action-box">
         <button class="msg-action-btn" onclick="triggerNavFromChat('${action.locId}')">
-          🗺️ Show Route to ${action.name}
+          🗺️ Show 3D Route to ${action.name}
         </button>
       </div>
     `;
@@ -901,82 +998,70 @@ function removeTypingIndicator(id) {
 function generateAiReply(query) {
   const q = query.toLowerCase();
 
+  if (q.includes("civil")) {
+    return {
+      text: "**Civil Engineering Department** is located in **Block 1 on the Ground Floor**. You'll find it right as you enter the Block 1 courtyard with the Indian Flagpole.",
+      action: { locId: "civil", name: "Civil Dept (Block 1)" }
+    };
+  }
+  if (q.includes("first year") || q.includes("fresher")) {
+    return {
+      text: "**First Year Engineering Classes** are held in **Block 1 on the 1st and 2nd Floors**. Ground floor has Civil & Admission, while upper floors are dedicated to fresher classes.",
+      action: { locId: "firstyear", name: "First Year Classes (Block 1)" }
+    };
+  }
+  if (q.includes("mechanical") || q.includes("workshop")) {
+    return {
+      text: "**Mechanical Engineering Department** is on the **Ground Floor of Block II**. Head through the terracotta garden walkway into Block II.",
+      action: { locId: "mechanical", name: "Mechanical Dept (Block II)" }
+    };
+  }
+  if (q.includes("electrical")) {
+    return {
+      text: "**Electrical Engineering Department** is located on the **1st Floor of Block II**. Enter Block II and take the central staircase up.",
+      action: { locId: "electrical", name: "Electrical Dept (Block II)" }
+    };
+  }
+  if (q.includes("cs lab") || q.includes("computer lab")) {
+    return {
+      text: "**Computer Science Labs (Labs 1–8)** are on the **Ground Floor of Block II**, equipped with high-speed development workstations and Linux environments.",
+      action: { locId: "cslabs", name: "CS Labs (Block II)" }
+    };
+  }
+  if (q.includes("it") || q.includes("information technology")) {
+    return {
+      text: "The **Information Technology (IT) Department** occupies both the **1st Floor and 2nd Floor of Block 3** (located alongside CDC Lawn).",
+      action: { locId: "itdept", name: "IT Department (Block 3)" }
+    };
+  }
   if (q.includes("library") || q.includes("book")) {
     return {
-      text: "The **Central Library** is located in **Block 1 on the 1st Floor**, directly above the Admission Cell. Walk straight from the Main Gate (~100m) into Block 1 and take the stairs up.",
+      text: "The **Central Library** is located on the **1st Floor of Block 1**, positioned directly above the Admission Cell.",
       action: { locId: "library", name: "Central Library" }
     };
   }
-  if (q.includes("admission") || q.includes("fees") || q.includes("counseling")) {
+  if (q.includes("admission") || q.includes("fee") || q.includes("counseling")) {
     return {
-      text: "The **Admission Cell** is on the **Ground Floor of Block 1**, right near the front entrance on the left. It's approximately 85 meters from the Main Gate.",
+      text: "The **Admission Cell** is situated on the **Ground Floor of Block 1** at the front entrance, about 85m from the Main Gate.",
       action: { locId: "admission", name: "Admission Cell" }
-    };
-  }
-  if (q.includes("cse") || q.includes("computer science") || q.includes("department")) {
-    return {
-      text: "The **Computer Science & Engineering (CSE) Department** is in **Block II**. Take the central avenue past Block 1 and enter via the terracotta garden walkway.",
-      action: { locId: "cse", name: "CSE Department" }
-    };
-  }
-  if (q.includes("lab") || q.includes("coding")) {
-    return {
-      text: "The **Advanced Computer Labs** (Labs 1–8) are situated in **Block II** on the ground and 1st floors with high-speed internet and development workstations.",
-      action: { locId: "lab", name: "Computer Labs" }
-    };
-  }
-  if (q.includes("block 1") || q.includes("first block")) {
-    return {
-      text: "**Block 1** is the first academic complex you reach from the main gate (~100m). Look for the Indian Flagpole and the tall Sports Achievements board.",
-      action: { locId: "block1", name: "Block 1" }
-    };
-  }
-  if (q.includes("block 2") || q.includes("block ii")) {
-    return {
-      text: "**Block II** is the central academic building hosting CSE and IT. It has a dedicated red-tile walkway lined with lush green plants.",
-      action: { locId: "block2", name: "Block II" }
-    };
-  }
-  if (q.includes("block 3") || q.includes("third block")) {
-    return {
-      text: "**Block 3** is located right beside the CDC Lawn. It houses Electronics, Mechanical, Civil departments, and the main auditorium.",
-      action: { locId: "block3", name: "Block 3" }
     };
   }
   if (q.includes("canteen") || q.includes("food") || q.includes("lunch")) {
     return {
-      text: "For meals, head to the **Main Campus Canteen** located near the Sports Complex. For coffee and snacks, **AcroCafe** is right along the road just past the canteen.",
+      text: "You can grab hot meals at the **Main Campus Canteen** across from the Sports Complex, or enjoy coffee & snacks at **AcroCafe** further along the central avenue.",
       action: { locId: "canteen", name: "Main Canteen" }
-    };
-  }
-  if (q.includes("cafe") || q.includes("coffee") || q.includes("acrocafe")) {
-    return {
-      text: "**AcroCafe** is our student coffee shop with outdoor seating along the central avenue, about 290m from the Main Gate.",
-      action: { locId: "cafe", name: "AcroCafe" }
     };
   }
   if (q.includes("basketball") || q.includes("sports")) {
     return {
-      text: "The **Basketball Court** and **Sports Complex** are located north of the CDC Lawn. The court has a regulation blue outdoor surface.",
+      text: "The **Regulation Blue Basketball Court** and **Sports Complex** are located north of the CDC Lawn. Outdoor court is floodlit for evening games.",
       action: { locId: "basketball", name: "Basketball Court" }
-    };
-  }
-  if (q.includes("transport") || q.includes("bus")) {
-    return {
-      text: "The **Transport Office** is in the south-west zone near the bus parking yard (~140m from the gate). They issue bus passes and maintain the 50+ college bus routes.",
-      action: { locId: "transport", name: "Transport Office" }
-    };
-  }
-  if (q.includes("ambulance") || q.includes("emergency") || q.includes("medical")) {
-    return {
-      text: "🚑 **Emergency Assistance**: The Acropolis Campus Ambulance is stationed along the main avenue near the Block 1 approach. Campus security is at the Main Gate.",
-      action: { locId: "gate", name: "Main Security Gate" }
     };
   }
 
   return {
-    text: `I understand you're looking for information on "${query}". You can browse all 17+ campus locations on our interactive map, or select a category below!`,
-    action: { locId: "block1", name: "Explore Campus" }
+    text: `Looking for "${query}"? Check out our interactive 3D model with floor-by-floor slicing, or explore the location directory!`,
+    action: { locId: "block1", name: "Explore 3D Campus" }
   };
 }
 
@@ -995,7 +1080,6 @@ window.triggerNavFromChat = function(locId) {
   selectLocation(locId, true);
 };
 
-// Toast notification helper
 function showToast(msg) {
   toastEl.textContent = msg;
   toastEl.classList.add("show");

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CampusNav AI — AITR | Smart Campus Navigation</title>
-  <meta name="description" content="AI-Powered Smart Campus Navigation System for Acropolis Institute of Technology and Research (AITR), Indore. Real photo walkthroughs, interactive satellite maps, and step-by-step guidance." />
+  <title>CampusNav AI — AITR | 3D Smart Campus Navigation System</title>
+  <meta name="description" content="AI-Powered 3D Campus Digital Twin & Smart Navigation System for Acropolis Institute of Technology and Research (AITR), Indore. Floor-by-floor departmental breakdown, real photo walkthroughs, and interactive pathfinding." />
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,23 +24,23 @@
       <div class="brand-logo">C</div>
       <div class="brand-text">
         <strong>CampusNav<span>AI</span></strong>
-        <span class="college-tag">AITR • INDORE</span>
+        <span class="college-tag">AITR • 3D DIGITAL TWIN</span>
       </div>
     </a>
 
     <nav class="nav-links">
-      <a href="#mapSection">Interactive Map</a>
-      <a href="#tourSection">Photo Tour</a>
-      <a href="#exploreSection">All Locations</a>
-      <a href="#aboutSection">About PS3</a>
+      <a href="#mapSection">3D Campus Model</a>
+      <a href="#tourSection">Photo Walkthrough</a>
+      <a href="#exploreSection">Department Directory</a>
+      <a href="#aboutSection">Hackathon PS3</a>
     </nav>
 
     <div class="topbar-actions">
       <button class="pill-btn" id="campusModeBtn" title="Set starting point to Main Gate">
-        <span class="pulsing-dot"></span> Gate Mode
+        <span class="pulsing-dot"></span> Gate Origin
       </button>
       <button class="primary-btn ai-nav-btn" id="openAiBtn">
-        ✦ AI Assistant
+        ✦ AI Campus Guide
       </button>
     </div>
   </header>
@@ -50,12 +50,12 @@
     <section class="hero">
       <div class="hero-left">
         <div class="eyebrow-badge">
-          <span class="badge-icon">🍁</span> HACKTOBERFEST'26 • PROBLEM STATEMENT 3
+          <span class="badge-icon">🍁</span> HACKTOBERFEST'26 • PROBLEM STATEMENT 3 (CAMPUS NAVIGATION)
         </div>
-        <h1>Never get lost on <span>AITR Campus</span> again.</h1>
+        <h1>Explore <span>AITR Campus</span> in Interactive 3D.</h1>
         <p class="hero-lead">
-          Intelligent campus navigation built for Acropolis Institute of Technology & Research. 
-          Find labs, departments, classrooms, offices, and facilities with <strong>real photo landmarks</strong> and <strong>turn-by-turn directions</strong>.
+          Next-generation campus navigation with a <strong>3D digital twin</strong>, floor-by-floor department slicing (Civil, Mechanical, Electrical, CSE & IT), 
+          and <strong>real photo landmark guidance</strong> for first-year students and visitors.
         </p>
 
         <!-- Search Bar with Live Suggestions -->
@@ -65,7 +65,7 @@
             <input 
               id="searchInput" 
               type="text" 
-              placeholder="Where do you want to go? (Try 'Library', 'CSE', 'Block 2', 'Canteen')" 
+              placeholder="Search departments, labs, classrooms (Try 'Civil', 'Electrical', 'IT', 'Library')" 
               autocomplete="off" 
             />
             <button class="search-action-btn" id="searchBtn">Find Route</button>
@@ -76,12 +76,13 @@
         <!-- Category Filters -->
         <div class="category-filters">
           <button class="filter-pill active" data-filter="all">🌟 All Locations</button>
+          <button class="filter-pill" data-filter="Departments">💻 Engineering Depts</button>
           <button class="filter-pill" data-filter="Blocks">🏢 Academic Blocks</button>
-          <button class="filter-pill" data-filter="Departments">💻 Departments</button>
+          <button class="filter-pill" data-filter="Labs">🧪 High-Tech Labs</button>
           <button class="filter-pill" data-filter="Offices">🪪 Offices & Admin</button>
-          <button class="filter-pill" data-filter="Facilities">📚 Library & Facilities</button>
+          <button class="filter-pill" data-filter="Facilities">📚 Library & Hubs</button>
           <button class="filter-pill" data-filter="Food">🍴 Canteen & Cafe</button>
-          <button class="filter-pill" data-filter="Sports">🏀 Sports & Court</button>
+          <button class="filter-pill" data-filter="Sports">🏀 Sports Complex</button>
         </div>
       </div>
 
@@ -89,24 +90,24 @@
         <div class="hero-preview-card">
           <div class="preview-img-container">
             <img src="assets/tour/07-block1-entrance.jpg" alt="AITR Block 1 Entrance" />
-            <div class="preview-badge">📍 Verified Campus Landmark</div>
+            <div class="preview-badge">📍 Verified Campus Ground Truth</div>
             <div class="preview-caption">
-              <strong>Academic Block 1 Entrance</strong>
-              <span>Indian Flag Courtyard • Admission Cell Ground Floor • Central Library 1st Floor</span>
+              <strong>Block 1 • Civil Dept & Freshers Wing</strong>
+              <span>Ground: Civil Engineering • 1st Floor: Central Library & Classes • Flag Courtyard</span>
             </div>
           </div>
           <div class="hero-floating-bubble bubble-1">
-            <span class="bubble-icon">🤖</span>
+            <span class="bubble-icon">🎮</span>
             <div>
-              <strong>Smart Search</strong>
-              <small>Natural Language Queries</small>
+              <strong>3D Floor Slicing</strong>
+              <small>Ground, 1st & 2nd Floor Views</small>
             </div>
           </div>
           <div class="hero-floating-bubble bubble-2">
-            <span class="bubble-icon">📸</span>
+            <span class="bubble-icon">🤖</span>
             <div>
-              <strong>Photo-Guided</strong>
-              <small>Sequential Landmark Visuals</small>
+              <strong>AI Query Resolver</strong>
+              <small>Instant Natural Language Guidance</small>
             </div>
           </div>
         </div>
@@ -116,63 +117,93 @@
     <!-- Stats Bar -->
     <section class="stats-bar">
       <div class="stat-item">
-        <strong>17+</strong>
-        <span>Calibrated AITR Locations</span>
+        <strong>3D WebGL</strong>
+        <span>Real-Time Digital Twin</span>
       </div>
       <div class="stat-item">
-        <strong>9</strong>
-        <span>Real Photo Walking Stops</span>
+        <strong>5 Depts</strong>
+        <span>Civil, Mech, Electrical, CSE & IT</span>
       </div>
       <div class="stat-item">
-        <strong>3</strong>
-        <span>Primary Academic Blocks</span>
+        <strong>17+ Points</strong>
+        <span>Floor-Accurate Coordinates</span>
       </div>
       <div class="stat-item">
-        <strong>100%</strong>
-        <span>Student & Visitor Ready</span>
+        <strong>100% Offline</strong>
+        <span>Local Resilient Architecture</span>
       </div>
     </section>
 
-    <!-- Interactive Map & Route Navigation Section -->
+    <!-- 3D Digital Twin & Navigation Section -->
     <section class="section" id="mapSection">
       <div class="section-header">
         <div>
-          <span class="section-tag">LIVE INTERACTIVE NAVIGATION</span>
-          <h2>Campus Map & Route Planner</h2>
+          <span class="section-tag">DUAL 3D DIGITAL TWIN & SATELLITE ENGINE</span>
+          <h2>Interactive Campus Navigation System</h2>
         </div>
-        <div class="map-mode-controls">
-          <button class="outline-btn" id="toggleMapModeBtn">📌 Switch to Annotated Map</button>
-          <button class="icon-btn" id="zoomOutBtn" title="Zoom Out">−</button>
-          <button class="icon-btn" id="zoomInBtn" title="Zoom In">+</button>
+        
+        <!-- View Switcher (3D vs 2D) -->
+        <div class="view-switcher-group">
+          <button class="switcher-btn active" id="switch3dBtn">🎮 3D Digital Twin</button>
+          <button class="switcher-btn" id="switch2dBtn">🗺️ 2D Satellite View</button>
         </div>
       </div>
 
       <div class="navigation-grid">
-        <!-- Map Canvas Viewport -->
+        <!-- Main Viewport Box (Hosts 3D or 2D) -->
         <div class="map-viewport-wrapper">
-          <div class="map-viewport" id="mapViewport">
-            <!-- Satellite / Annotated Map Image -->
-            <img src="assets/campus-map.png" alt="AITR Campus Map" id="campusMapImg" />
-            
-            <!-- SVG Polyline Route Layer (768 x 1024 viewBox matching calibrated map) -->
-            <svg class="route-svg-layer" viewBox="0 0 768 1024" preserveAspectRatio="none">
-              <polyline id="routeSvgLine" points="" />
-            </svg>
+          
+          <!-- 3D Canvas Container -->
+          <div id="view3dContainer" class="view-panel active">
+            <!-- 3D Toolbar & Floor Slicers -->
+            <div class="viewer-3d-toolbar">
+              <div class="floor-slicer-group">
+                <span class="toolbar-label">FLOOR VIEW:</span>
+                <button class="floor-btn active" data-level="all">All Floors</button>
+                <button class="floor-btn" data-level="ground">Ground Floor</button>
+                <button class="floor-btn" data-level="first">1st Floor</button>
+                <button class="floor-btn" data-level="second">2nd Floor</button>
+              </div>
 
-            <!-- Fixed Origin Pin: Main Gate -->
-            <div class="map-origin-pin" style="left: 74%; top: 91%;" title="You start here: Main Campus Gate">
-              <span class="origin-pulse"></span>
-              <span class="origin-label">🚪 You Are Here (Main Gate)</span>
+              <div class="camera-preset-group">
+                <button class="icon-btn" id="reset3dBtn" title="Reset 3D Overview Camera">🔄</button>
+                <button class="preset-btn" onclick="if(window.campus3d) window.campus3d.focusBuilding('block1')">Block 1</button>
+                <button class="preset-btn" onclick="if(window.campus3d) window.campus3d.focusBuilding('block2')">Block 2</button>
+                <button class="preset-btn" onclick="if(window.campus3d) window.campus3d.focusBuilding('block3')">Block 3</button>
+              </div>
             </div>
 
-            <!-- Dynamic Location Pins -->
-            <div id="mapMarkers"></div>
+            <!-- 3D Three.js WebGL Mount Canvas -->
+            <div class="canvas-3d-mount" id="campus3dContainer"></div>
+
+            <div class="map-legend-bar">
+              <span><span class="legend-dot start-dot"></span> Main Gate (Start)</span>
+              <span><span class="legend-dot dest-dot"></span> Selected Destination</span>
+              <span><span class="legend-line"></span> 3D Glowing Route Tube</span>
+              <span class="legend-hint">💡 Click any 3D building to inspect departments</span>
+            </div>
           </div>
-          
-          <div class="map-legend-bar">
-            <span><span class="legend-dot start-dot"></span> Starting Point (Gate)</span>
-            <span><span class="legend-dot dest-dot"></span> Selected Destination</span>
-            <span><span class="legend-line"></span> Walking Route Pathway</span>
+
+          <!-- 2D Satellite Canvas Container -->
+          <div id="view2dContainer" class="view-panel" style="display: none;">
+            <div class="map-2d-toolbar">
+              <button class="outline-btn" id="toggleMapModeBtn">📌 Switch to Annotated Map</button>
+              <div>
+                <button class="icon-btn" id="zoomOutBtn" title="Zoom Out">−</button>
+                <button class="icon-btn" id="zoomInBtn" title="Zoom In">+</button>
+              </div>
+            </div>
+            <div class="map-viewport" id="mapViewport">
+              <img src="assets/campus-map.png" alt="AITR Campus Map" id="campusMapImg" />
+              <svg class="route-svg-layer" viewBox="0 0 768 1024" preserveAspectRatio="none">
+                <polyline id="routeSvgLine" points="" />
+              </svg>
+              <div class="map-origin-pin" style="left: 74%; top: 91%;" title="You start here: Main Campus Gate">
+                <span class="origin-pulse"></span>
+                <span class="origin-label">🚪 You Are Here (Main Gate)</span>
+              </div>
+              <div id="mapMarkers"></div>
+            </div>
           </div>
         </div>
 
@@ -187,7 +218,7 @@
             <span class="dest-kicker">SELECTED DESTINATION</span>
             <h3 id="destName">Academic Block 1</h3>
             <span class="dest-badge" id="destBlock">Block 1 • Ground - 3rd Floor</span>
-            <p class="dest-summary" id="destDetails">First Year engineering classrooms, fundamental engineering labs, department offices, and faculty cabins.</p>
+            <p class="dest-summary" id="destDetails">Civil Engineering on Ground Floor, Central Library on 1st Floor, and First Year Classes on upper floors.</p>
           </div>
 
           <!-- Trip Metrics -->
@@ -228,13 +259,95 @@
       </div>
     </section>
 
+    <!-- Floor-by-Floor Department Architecture Reference -->
+    <section class="section floor-breakdown-section">
+      <div class="section-header">
+        <div>
+          <span class="section-tag">VERIFIED AITR FLOOR PLAN</span>
+          <h2>Departmental & Building Architecture</h2>
+          <p class="section-sub">Quick guide to the floor locations of all academic branches at AITR.</p>
+        </div>
+      </div>
+
+      <div class="block-cards-grid">
+        <!-- Block 1 Card -->
+        <div class="block-info-card">
+          <div class="block-card-header">
+            <h3>🏢 Block 1</h3>
+            <span class="block-tag">Terracotta Complex</span>
+          </div>
+          <div class="floor-level-row">
+            <span class="floor-pill">Ground Floor</span>
+            <strong>Civil Engineering Department</strong> • Admission Cell & Counseling
+          </div>
+          <div class="floor-level-row">
+            <span class="floor-pill">1st Floor</span>
+            <strong>Central Library</strong> (above Admission) • First Year Classes (Sec A-D)
+          </div>
+          <div class="floor-level-row">
+            <span class="floor-pill">2nd Floor</span>
+            <strong>First Year Classes</strong> (Sec E-H) • Applied Physics & Chemistry Labs
+          </div>
+          <div class="block-card-footer">
+            <button class="outline-btn full-btn" onclick="selectLocation('civil', true)">Navigate to Civil Dept</button>
+          </div>
+        </div>
+
+        <!-- Block 2 Card -->
+        <div class="block-info-card highlighted-block">
+          <div class="block-card-header">
+            <h3>🏢 Block II (CSE/IT)</h3>
+            <span class="block-tag">Central Tech Hub</span>
+          </div>
+          <div class="floor-level-row">
+            <span class="floor-pill">Ground Floor</span>
+            <strong>Mechanical Engineering Dept</strong> • CS Labs (Labs 1–8 High Performance)
+          </div>
+          <div class="floor-level-row">
+            <span class="floor-pill">1st Floor</span>
+            <strong>Electrical Engineering Dept</strong> • CSE Department Faculty Cabins
+          </div>
+          <div class="floor-level-row">
+            <span class="floor-pill">2nd Floor</span>
+            <strong>Advanced AI & Cloud Lab</strong> • Project Labs & CSE HOD Office
+          </div>
+          <div class="block-card-footer">
+            <button class="primary-btn full-btn" onclick="selectLocation('mechanical', true)">Navigate to Mech & CS Labs</button>
+          </div>
+        </div>
+
+        <!-- Block 3 Card -->
+        <div class="block-info-card">
+          <div class="block-card-header">
+            <h3>🏢 Block 3</h3>
+            <span class="block-tag">Beside CDC Lawn</span>
+          </div>
+          <div class="floor-level-row">
+            <span class="floor-pill">Ground Floor</span>
+            <strong>Engineering Graphics Lab</strong> • Workshop & Civil Material Testing
+          </div>
+          <div class="floor-level-row">
+            <span class="floor-pill">1st Floor</span>
+            <strong>IT Department (Information Technology)</strong> • IT Software Lab
+          </div>
+          <div class="floor-level-row">
+            <span class="floor-pill">2nd Floor</span>
+            <strong>IT Department Classrooms</strong> • Cybersecurity & Network Lab
+          </div>
+          <div class="block-card-footer">
+            <button class="outline-btn full-btn" onclick="selectLocation('itdept', true)">Navigate to IT Dept</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Sequential Photo Tour Walkthrough -->
     <section class="section photo-tour-section" id="tourSection">
       <div class="section-header">
         <div>
           <span class="section-tag">GROUND-LEVEL WALKTHROUGH</span>
-          <h2>AITR Photo-Guided Walking Tour</h2>
-          <p class="section-sub">Experience the exact walking journey from the Main Gate to the academic blocks.</p>
+          <h2>AITR Real Photo Walking Tour</h2>
+          <p class="section-sub">Experience the real walking sequence from Main Gate to Block 1 and Block II.</p>
         </div>
         <div class="tour-controls">
           <span class="tour-counter" id="tourIndicator">1 of 9</span>
@@ -252,7 +365,7 @@
           <h3 id="tourTitle">1. Main Campus Gate</h3>
           <p id="tourDesc">Primary security entrance with guard cabin, gate barrier, and guidelines board.</p>
           <div class="tour-features">
-            <div class="tour-feat-item">✓ Security Checkpoint</div>
+            <div class="tour-feat-item">✓ Security Checkpoint & Verification</div>
             <div class="tour-feat-item">✓ Direct Vehicle & Pedestrian Access</div>
             <div class="tour-feat-item">✓ Starting Hub for Campus Navigation</div>
           </div>
@@ -285,23 +398,23 @@
         <div class="about-grid">
           <div class="about-point">
             <span class="point-num">01</span>
-            <h4>The Real Problem</h4>
-            <p>New students and visitors face anxiety finding unfamiliar blocks, admission offices, computer labs, and department desks across large multi-acre campuses.</p>
+            <h4>Interactive 3D Twin</h4>
+            <p>Students can rotate, zoom, and inspect a full 3D WebGL model of AITR with floor-by-floor departmental breakdown (Civil, Mech, Electrical, CSE & IT).</p>
           </div>
           <div class="about-point">
             <span class="point-num">02</span>
-            <h4>The Photo-Guided Solution</h4>
-            <p>CampusNav AI combines calibrated satellite layout mapping with ground-level sequential photos, allowing students to recognize physical landmarks with zero confusion.</p>
+            <h4>Real Photo Guidance</h4>
+            <p>CampusNav AI connects satellite coordinates with actual ground-level photos, allowing students to recognize physical entrance landmarks instantly.</p>
           </div>
           <div class="about-point">
             <span class="point-num">03</span>
             <h4>Natural Language AI</h4>
-            <p>Students don't need to memorize room numbers. Simple queries like <em>"Where is the library?"</em> or <em>"Find nearest food"</em> instantly resolve to verified locations and routes.</p>
+            <p>No room numbers required. Natural queries like <em>"Where is Civil?"</em>, <em>"Take me to CS labs"</em>, or <em>"Library"</em> immediately plot the route.</p>
           </div>
           <div class="about-point">
             <span class="point-num">04</span>
-            <h4>Zero Dependencies</h4>
-            <p>Built purely with lightweight, accessible standards (HTML5/CSS3/Vanilla JS) for instant load times even on low-bandwidth mobile connections across campus.</p>
+            <h4>Offline Resilient</h4>
+            <p>Built with pure HTML5, CSS3, and local Three.js libraries for 60fps performance without external API latency or network dropouts.</p>
           </div>
         </div>
       </div>
@@ -326,23 +439,26 @@
         <div class="chat-msg bot-msg">
           <div class="bot-avatar">🤖</div>
           <div class="msg-bubble">
-            <p>Hello! I am your <strong>AITR Campus AI Assistant</strong>. Ask me anything about finding classrooms, departments, admission desks, canteen, or the library!</p>
+            <p>Hello! I am your <strong>AITR Campus AI Assistant</strong>. Ask me anything about where departments, CS labs, classrooms, canteen, or the library are located!</p>
           </div>
         </div>
       </div>
 
       <!-- Quick Prompt Suggestions -->
       <div class="ai-quick-prompts">
-        <button class="quick-chip">📚 Where is the Central Library?</button>
+        <button class="quick-chip">🏗️ Where is Civil Department?</button>
+        <button class="quick-chip">⚙️ Where is Mechanical Department?</button>
+        <button class="quick-chip">⚡ Where is Electrical Department?</button>
+        <button class="quick-chip">🌐 Where is IT Department?</button>
+        <button class="quick-chip">🧪 Where are CS Labs?</button>
+        <button class="quick-chip">🎒 Where are First Year Classes?</button>
+        <button class="quick-chip">📚 Where is Central Library?</button>
         <button class="quick-chip">🪪 Take me to Admission Cell</button>
-        <button class="quick-chip">💻 Where is CSE Department?</button>
-        <button class="quick-chip">🍴 Where can I get food & lunch?</button>
-        <button class="quick-chip">🏀 Where is the Basketball Court?</button>
       </div>
 
       <!-- Input Area -->
       <div class="ai-chat-footer">
-        <input type="text" id="aiInput" placeholder="Ask e.g. 'Where is Block 2?' or 'Nearest coffee'..." autocomplete="off" />
+        <input type="text" id="aiInput" placeholder="Ask e.g. 'Where is Mechanical?' or 'Library'..." autocomplete="off" />
         <button id="aiSendBtn">Send</button>
       </div>
     </div>
@@ -355,7 +471,7 @@
   <footer class="main-footer">
     <div class="footer-content">
       <div>
-        <strong>CampusNav AI</strong>
+        <strong>CampusNav AI — AITR</strong>
         <p>Acropolis Institute of Technology and Research, Bypass Road, Manglia Square, Indore (M.P.)</p>
       </div>
       <div class="footer-badge">
@@ -364,6 +480,10 @@
     </div>
   </footer>
 
+  <!-- Scripts: Offline Three.js, OrbitControls, 3D Engine & Application -->
+  <script src="assets/js/three.min.js"></script>
+  <script src="assets/js/OrbitControls.js"></script>
+  <script src="campus3d.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

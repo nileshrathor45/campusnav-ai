@@ -1,6 +1,7 @@
 /* ==============================================================================
    CampusNav AI - Modern Styling & Responsive Theme
    Acropolis Institute of Technology & Research (AITR)
+   Interactive 3D Digital Twin + Photo Navigation Theme
    ============================================================================== */
 
 :root {
@@ -221,7 +222,7 @@ body {
 
 /* Main Container */
 main {
-  max-width: 1320px;
+  max-width: 1340px;
   margin: 0 auto;
   padding: 0 24px;
   position: relative;
@@ -279,7 +280,7 @@ main {
 /* Search Container */
 .search-container {
   position: relative;
-  max-width: 620px;
+  max-width: 640px;
   margin-bottom: 25px;
 }
 .search-shell {
@@ -423,7 +424,6 @@ main {
   height: 420px;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s;
 }
 .preview-badge {
   position: absolute;
@@ -509,7 +509,7 @@ main {
 .stat-item strong {
   display: block;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 32px;
+  font-size: 30px;
   color: var(--accent-cyan);
 }
 .stat-item span {
@@ -547,10 +547,36 @@ main {
   margin-top: 6px;
 }
 
+/* View Switcher Controls (3D vs 2D) */
+.view-switcher-group {
+  display: flex;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  gap: 4px;
+}
+.switcher-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.switcher-btn.active {
+  background: linear-gradient(135deg, var(--accent-cyan), #3b82f6);
+  color: #04121a;
+  box-shadow: 0 4px 15px rgba(56, 215, 192, 0.35);
+}
+
 /* Navigation & Map Layout */
 .navigation-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: 1.55fr 0.95fr;
   gap: 24px;
   align-items: start;
 }
@@ -562,18 +588,94 @@ main {
   overflow: hidden;
   box-shadow: var(--shadow-main);
 }
-.map-mode-controls {
+
+/* 3D Viewport Toolbar & Floor Slicers */
+.viewer-3d-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: #091322;
+  border-bottom: 1px solid var(--border-light);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.floor-slicer-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+}
+.toolbar-label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  margin-right: 4px;
+}
+.floor-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.floor-btn:hover,
+.floor-btn.active {
+  border-color: var(--accent-cyan);
+  color: #fff;
+  background: rgba(56, 215, 192, 0.15);
 }
 
+.camera-preset-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.preset-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.preset-btn:hover {
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
+/* Canvas 3D Mount */
+.canvas-3d-mount {
+  position: relative;
+  width: 100%;
+  height: 590px;
+  background: #070e1b;
+  cursor: grab;
+}
+.canvas-3d-mount:active {
+  cursor: grabbing;
+}
+
+/* 2D Satellite Viewport */
+.map-2d-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: #091322;
+  border-bottom: 1px solid var(--border-light);
+}
 .map-viewport {
   position: relative;
-  height: 640px;
+  height: 590px;
   overflow: hidden;
   background: #111a27;
-  cursor: grab;
 }
 .map-viewport img {
   width: 100%;
@@ -581,7 +683,7 @@ main {
   object-fit: cover;
   display: block;
   transform-origin: center;
-  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+  transition: transform 0.3s;
 }
 
 /* Route SVG Layer */
@@ -604,9 +706,7 @@ main {
   filter: drop-shadow(0 0 10px rgba(56, 215, 192, 0.8));
 }
 @keyframes dashAnimation {
-  to {
-    stroke-dashoffset: -48;
-  }
+  to { stroke-dashoffset: -48; }
 }
 
 /* Map Origin Pin */
@@ -673,7 +773,6 @@ main {
   z-index: 20;
   box-shadow: 0 0 25px rgba(56, 215, 192, 0.8);
 }
-
 .pin-tooltip {
   display: none;
   position: absolute;
@@ -697,10 +796,12 @@ main {
   display: flex;
   gap: 20px;
   padding: 12px 20px;
-  background: rgba(7, 13, 24, 0.9);
+  background: rgba(7, 13, 24, 0.95);
   border-top: 1px solid var(--border-light);
   font-size: 11px;
   color: var(--text-muted);
+  align-items: center;
+  flex-wrap: wrap;
 }
 .legend-dot {
   display: inline-block;
@@ -718,6 +819,11 @@ main {
   background: var(--accent-cyan);
   margin-right: 6px;
   vertical-align: middle;
+}
+.legend-hint {
+  margin-left: auto;
+  color: var(--accent-cyan);
+  font-weight: 600;
 }
 
 /* Directions Panel */
@@ -847,7 +953,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 220px;
+  max-height: 200px;
   overflow-y: auto;
   margin-bottom: 20px;
 }
@@ -875,6 +981,71 @@ main {
   font-size: 12px;
   color: var(--text-muted);
   line-height: 1.5;
+}
+
+/* Floor Breakdown Architecture Section */
+.block-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.block-info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.25s;
+}
+.block-info-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+.highlighted-block {
+  border-color: rgba(56, 215, 192, 0.35);
+  background: linear-gradient(145deg, #0e1b2e, #0c1626);
+}
+.block-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+.block-card-header h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+}
+.block-tag {
+  font-size: 10px;
+  color: var(--accent-cyan);
+  background: rgba(56, 215, 192, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.floor-level-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+.floor-level-row strong {
+  color: var(--text-main);
+}
+.floor-pill {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  letter-spacing: 0.5px;
+}
+.block-card-footer {
+  margin-top: auto;
+  padding-top: 14px;
 }
 
 /* Photo Tour Walkthrough */
@@ -1344,6 +1515,9 @@ main {
     margin: 0 auto;
   }
   .navigation-grid {
+    grid-template-columns: 1fr;
+  }
+  .block-cards-grid {
     grid-template-columns: 1fr;
   }
   .tour-viewer-card {
