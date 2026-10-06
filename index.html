@@ -184,25 +184,112 @@
             </div>
           </div>
 
-          <!-- 2D Satellite Canvas Container -->
+          <!-- 2D Google & Architectural Blueprint Canvas Container -->
           <div id="view2dContainer" class="view-panel" style="display: none;">
             <div class="map-2d-toolbar">
-              <button class="outline-btn" id="toggleMapModeBtn">📌 Switch to Annotated Map</button>
-              <div>
+              <div class="map-layers-group">
+                <span class="toolbar-label">MAP VIEW:</span>
+                <button class="map-layer-btn active" data-layer="annotated">📌 Annotated Google Map</button>
+                <button class="map-layer-btn" data-layer="model">📐 Architectural Model Blueprint</button>
+                <button class="map-layer-btn" data-layer="clean">🛰️ Satellite View</button>
+              </div>
+              <div class="map-zoom-group">
                 <button class="icon-btn" id="zoomOutBtn" title="Zoom Out">−</button>
                 <button class="icon-btn" id="zoomInBtn" title="Zoom In">+</button>
+                <button class="icon-btn" id="recenterBtn" title="Re-center Map">🎯</button>
               </div>
             </div>
             <div class="map-viewport" id="mapViewport">
-              <img src="assets/campus-map.png" alt="AITR Campus Map" id="campusMapImg" />
-              <svg class="route-svg-layer" viewBox="0 0 768 1024" preserveAspectRatio="none">
+              <img src="assets/campus-google-annotated.jpg" alt="AITR Campus Map" id="campusMapImg" />
+              <svg class="route-svg-layer" id="routeSvgLayer" viewBox="0 0 768 1024" preserveAspectRatio="none">
                 <polyline id="routeSvgLine" points="" />
               </svg>
-              <div class="map-origin-pin" style="left: 74%; top: 91%;" title="You start here: Main Campus Gate">
+              <div class="map-origin-pin" id="mapOriginPin" style="left: 74%; top: 91%;" title="You start here: Main Campus Gate">
                 <span class="origin-pulse"></span>
-                <span class="origin-label">🚪 You Are Here (Main Gate)</span>
+                <span class="origin-label">🚪 Main Gate (Origin)</span>
+              </div>
+              <!-- Live 2D GPS Location Marker -->
+              <div class="map-live-walker" id="mapLiveWalker" style="display: none; left: 74%; top: 91%;">
+                <span class="walker-pulse-radar"></span>
+                <span class="walker-dot"></span>
+                <span class="walker-heading-pointer">▲</span>
               </div>
               <div id="mapMarkers"></div>
+            </div>
+            <div class="map-legend-bar" id="map2dLegend">
+              <span><span class="legend-dot start-dot"></span> Main Gate</span>
+              <span><span class="legend-dot dest-dot"></span> Destination Point</span>
+              <span><span class="legend-line"></span> Calculated Path</span>
+              <span class="legend-hint" id="mapLayerHint">📌 Calibrated from satellite aerial survey & ground truth</span>
+            </div>
+          </div>
+
+          <!-- Live Navigation Turn-by-Turn HUD Dock -->
+          <div class="live-nav-hud" id="liveNavHud" style="display: none;">
+            <div class="hud-top-bar">
+              <div class="hud-status-chip">
+                <span class="live-pulse-badge"></span>
+                <span id="hudStatusText">LIVE GUIDANCE ACTIVE</span>
+              </div>
+              <div class="hud-actions-right">
+                <button class="hud-pill-btn" id="hudAudioToggleBtn" title="Toggle Voice Audio Turn Announcements">
+                  <span id="hudAudioIcon">🔊</span> <span id="hudAudioLabel">Voice On</span>
+                </button>
+                <button class="hud-close-btn" id="hudStopNavBtn" title="End Live Navigation">✕ Exit</button>
+              </div>
+            </div>
+
+            <div class="hud-main-card">
+              <div class="hud-turn-icon-wrap" id="hudTurnIconWrap">
+                <span class="hud-turn-icon" id="hudTurnIcon">⬆️</span>
+              </div>
+              <div class="hud-turn-info">
+                <div class="hud-next-dist" id="hudNextDist">Starting Point • 0m</div>
+                <h4 class="hud-instruction" id="hudInstruction">Walk straight past the security verification post along the paved avenue</h4>
+                <div class="hud-upcoming" id="hudUpcoming">Next: Follow the avenue gentle left curve</div>
+              </div>
+              <div class="hud-landmark-cue" id="hudLandmarkCue">
+                <img id="hudLandmarkImg" src="assets/tour/01-main-gate.jpg" alt="Landmark" />
+                <small id="hudLandmarkLabel">Landmark: Main Campus Gate</small>
+              </div>
+            </div>
+
+            <!-- Real-Time Progress Bar -->
+            <div class="hud-progress-wrap">
+              <div class="hud-progress-bar" id="hudProgressBar" style="width: 0%;"></div>
+            </div>
+
+            <!-- Live Metrics Row -->
+            <div class="hud-metrics-row">
+              <div class="hud-metric">
+                <span class="metric-num" id="hudDistRemaining">100 m</span>
+                <span class="metric-title">Remaining</span>
+              </div>
+              <div class="hud-metric">
+                <span class="metric-num" id="hudTimeRemaining">1m 15s</span>
+                <span class="metric-title">Est. Arrival</span>
+              </div>
+              <div class="hud-metric">
+                <span class="metric-num" id="hudStepsWalked">0 / 135</span>
+                <span class="metric-title">Steps Walked</span>
+              </div>
+              <div class="hud-metric">
+                <span class="metric-num" id="hudSpeedVal">4.5 km/h</span>
+                <span class="metric-title">Walking Pace</span>
+              </div>
+            </div>
+
+            <!-- HUD Playback Controls -->
+            <div class="hud-controls-row">
+              <button class="hud-ctrl-btn" id="hudPrevStepBtn" title="Previous Waypoint">⏮️ Prev</button>
+              <button class="hud-ctrl-btn hud-play-btn" id="hudPlayPauseBtn" title="Pause / Resume">⏸️ Pause</button>
+              <button class="hud-ctrl-btn" id="hudNextStepBtn" title="Next Waypoint">Next ⏭️</button>
+              <div class="hud-speed-selector">
+                <span class="speed-label">Speed:</span>
+                <button class="hud-speed-btn active" data-speed="1">1x</button>
+                <button class="hud-speed-btn" data-speed="2">2x</button>
+                <button class="hud-speed-btn" data-speed="4">4x</button>
+              </div>
             </div>
           </div>
         </div>

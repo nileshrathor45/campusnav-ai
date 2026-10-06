@@ -415,6 +415,90 @@ class Campus3D {
     });
 
     // =========================================================================
+    // PHYSICAL ARCHITECTURAL MODEL (Entrance -> Library -> Passage -> Blocks 1, 2, 3)
+    // As captured in the verified AITR scale model blueprint photo
+    // =========================================================================
+    
+    // 1. Long continuous covered Passage / Corridor connecting Library, Block 1, Block 2, Block 3
+    const passageGeo = new THREE.BoxGeometry(14, 9, 160);
+    const passageMat = new THREE.MeshStandardMaterial({
+      color: 0x243242,
+      roughness: 0.5,
+      metalness: 0.25
+    });
+    const passage = new THREE.Mesh(passageGeo, passageMat);
+    passage.position.set(16, 4.5, -4);
+    passage.castShadow = true;
+    passage.receiveShadow = true;
+    passage.userData = { id: "passage", name: "Main Inter-Block Covered Passage / Corridor", info: "Continuous covered walkway linking Library, Block 1, Block 2, and Block 3" };
+    this.scene.add(passage);
+
+    // Continuous glass ribbon along the front passage
+    const passageGlassGeo = new THREE.BoxGeometry(14.4, 3.8, 156);
+    const passageGlassMat = new THREE.MeshStandardMaterial({
+      color: 0x38d7c0,
+      roughness: 0.1,
+      metalness: 0.8,
+      transparent: true,
+      opacity: 0.65
+    });
+    const passageGlass = new THREE.Mesh(passageGlassGeo, passageGlassMat);
+    passageGlass.position.set(16, 5, -4);
+    this.scene.add(passageGlass);
+
+    // Architectural roof overhang on passage
+    const passageRoofGeo = new THREE.BoxGeometry(18, 1.2, 164);
+    const passageRoofMat = new THREE.MeshStandardMaterial({ color: 0x111c2a, roughness: 0.8 });
+    const passageRoof = new THREE.Mesh(passageRoofGeo, passageRoofMat);
+    passageRoof.position.set(16, 9.6, -4);
+    passageRoof.castShadow = true;
+    this.scene.add(passageRoof);
+
+    // Support pillars along the passage facade
+    for (let z = 70; z >= -78; z -= 14) {
+      const pillarGeo = new THREE.CylinderGeometry(0.7, 0.7, 9, 8);
+      const pillarMat = new THREE.MeshStandardMaterial({ color: 0xd98642 });
+      const pillar = new THREE.Mesh(pillarGeo, pillarMat);
+      pillar.position.set(23, 4.5, z);
+      pillar.castShadow = true;
+      this.scene.add(pillar);
+    }
+
+    // 2. Central Library & Entrance Pavilion Wing (Front-Left as shown on physical model)
+    const libWingGeo = new THREE.BoxGeometry(40, 18, 36);
+    const libWingMat = new THREE.MeshStandardMaterial({
+      color: 0xce7a38,
+      roughness: 0.45,
+      metalness: 0.15
+    });
+    const libWing = new THREE.Mesh(libWingGeo, libWingMat);
+    libWing.position.set(24, 9, 78);
+    libWing.castShadow = true;
+    libWing.receiveShadow = true;
+    libWing.userData = { id: "library", name: "Central Library Wing & Entrance Pavilion", info: "Front-left entrance wing housing Central Library and Dean offices" };
+    this.scene.add(libWing);
+
+    // Library entrance glass atrium
+    const atriumGeo = new THREE.BoxGeometry(18, 12, 12);
+    const atriumMat = new THREE.MeshStandardMaterial({
+      color: 0x5ab2ff,
+      roughness: 0.1,
+      metalness: 0.9,
+      transparent: true,
+      opacity: 0.7
+    });
+    const atrium = new THREE.Mesh(atriumGeo, atriumMat);
+    atrium.position.set(24, 6, 96);
+    this.scene.add(atrium);
+
+    // Main Entrance Arch over the passage approach
+    const archGeo = new THREE.BoxGeometry(22, 2.5, 8);
+    const archMat = new THREE.MeshStandardMaterial({ color: 0x38d7c0 });
+    const arch = new THREE.Mesh(archGeo, archMat);
+    arch.position.set(24, 13, 98);
+    this.scene.add(arch);
+
+    // =========================================================================
     // FACULTY OF MANAGEMENT & RESEARCH (Northwest)
     // =========================================================================
     createAcademicBlock({
@@ -780,14 +864,182 @@ class Campus3D {
     this.renderer.setSize(width, height);
   }
 
+  // =========================================================================
+  // LIVE 3D NAVIGATION WALKER & CHASE CAMERA SYSTEM
+  // =========================================================================
+
+  setupLiveWalker() {
+    if (this.walkerGroup) return;
+
+    this.walkerGroup = new THREE.Group();
+    this.walkerGroup.visible = false;
+
+    // 1. Glowing Avatar Core Sphere
+    const coreGeo = new THREE.SphereGeometry(2.2, 24, 24);
+    const coreMat = new THREE.MeshStandardMaterial({
+      color: 0x38d7c0,
+      emissive: 0x1d9f8c,
+      emissiveIntensity: 0.85,
+      roughness: 0.2,
+      metalness: 0.8
+    });
+    this.walkerSphere = new THREE.Mesh(coreGeo, coreMat);
+    this.walkerSphere.position.y = 4.5;
+    this.walkerSphere.castShadow = true;
+    this.walkerGroup.add(this.walkerSphere);
+
+    // 2. Directional Pointer (Points toward current walking heading)
+    const arrowGeo = new THREE.ConeGeometry(1.2, 3.2, 8);
+    const arrowMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    this.walkerPointer = new THREE.Mesh(arrowGeo, arrowMat);
+    this.walkerPointer.rotation.x = Math.PI / 2;
+    this.walkerPointer.position.set(0, 4.5, 3.8);
+    this.walkerGroup.add(this.walkerPointer);
+
+    // 3. Ground Radar Pulsing Ring
+    const ringGeo = new THREE.RingGeometry(2, 4, 32);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0x38d7c0,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.8
+    });
+    this.walkerRing = new THREE.Mesh(ringGeo, ringMat);
+    this.walkerRing.rotation.x = -Math.PI / 2;
+    this.walkerRing.position.y = 0.5;
+    this.walkerGroup.add(this.walkerRing);
+
+    // 4. Ground Spotlight to highlight walking path
+    this.walkerLight = new THREE.PointLight(0x38d7c0, 2.5, 35);
+    this.walkerLight.position.set(0, 5, 0);
+    this.walkerGroup.add(this.walkerLight);
+
+    this.scene.add(this.walkerGroup);
+
+    // Navigation state variables
+    this.isLiveNavActive = false;
+    this.isNavPaused = false;
+    this.walkerProgress = 0;
+    this.walkerCurve = null;
+    this.navSpeedMultiplier = 1;
+    this.onNavProgress = null;
+    this.onNavComplete = null;
+    this.followWalkerCamera = true;
+  }
+
+  startLiveNavigation(targetCoord, onProgress, onComplete) {
+    this.setupLiveWalker();
+
+    // Set target waypoint coordinates
+    const waypoints = [
+      new THREE.Vector3(50, 1.2, 155),  // Main Gate Origin
+      new THREE.Vector3(42, 1.2, 115),  // Crosswalk
+      new THREE.Vector3(34, 1.2, 70),   // Gate Curve
+      new THREE.Vector3(30, 1.2, 20),   // Central Avenue
+      new THREE.Vector3(30, 1.2, targetCoord.z), // Avenue parallel to building
+      new THREE.Vector3(targetCoord.x, 2.5, targetCoord.z) // Building Entry
+    ];
+
+    this.walkerCurve = new THREE.CatmullRomCurve3(waypoints);
+    this.walkerProgress = 0;
+    this.isLiveNavActive = true;
+    this.isNavPaused = false;
+    this.onNavProgress = onProgress;
+    this.onNavComplete = onComplete;
+
+    this.walkerGroup.visible = true;
+
+    // Draw full glowing 3D path tube
+    this.draw3DNavigationRoute(targetCoord);
+
+    // Position camera for start
+    const startPt = this.walkerCurve.getPointAt(0);
+    this.walkerGroup.position.copy(startPt);
+    this.camera.position.set(startPt.x + 25, 35, startPt.z + 40);
+    this.controls.target.copy(startPt);
+  }
+
+  pauseLiveNavigation() {
+    this.isNavPaused = true;
+  }
+
+  resumeLiveNavigation() {
+    this.isNavPaused = false;
+  }
+
+  stopLiveNavigation() {
+    this.isLiveNavActive = false;
+    this.isNavPaused = false;
+    this.walkerProgress = 0;
+    if (this.walkerGroup) {
+      this.walkerGroup.visible = false;
+    }
+    this.resetCamera();
+  }
+
+  setLiveWalkerProgress(pct) {
+    this.walkerProgress = Math.max(0, Math.min(1, pct));
+    if (this.walkerCurve && this.walkerGroup) {
+      const pt = this.walkerCurve.getPointAt(this.walkerProgress);
+      this.walkerGroup.position.copy(pt);
+      if (this.followWalkerCamera) {
+        this.camera.position.set(pt.x + 25, 35, pt.z + 40);
+        this.controls.target.copy(pt);
+      }
+    }
+  }
+
+  setNavSpeed(multiplier) {
+    this.navSpeedMultiplier = multiplier;
+  }
+
   animate() {
     requestAnimationFrame(() => this.animate());
     this.controls.update();
 
-    // Subtle floating beacon animation
+    // Floating destination beacon animation
     if (this.activePinMarker) {
       this.activePinMarker.position.y = 25 + Math.sin(Date.now() * 0.005) * 3;
       this.activePinMarker.rotation.y += 0.03;
+    }
+
+    // Live Walker Movement & Camera Following
+    if (this.isLiveNavActive && !this.isNavPaused && this.walkerCurve && this.walkerGroup) {
+      // Advance along path curve
+      this.walkerProgress += 0.0016 * this.navSpeedMultiplier;
+
+      if (this.walkerProgress >= 1) {
+        this.walkerProgress = 1;
+        this.isLiveNavActive = false;
+        if (this.onNavComplete) this.onNavComplete();
+      }
+
+      const currentPos = this.walkerCurve.getPointAt(this.walkerProgress);
+      this.walkerGroup.position.copy(currentPos);
+
+      // Orient walker toward forward tangent
+      const tangent = this.walkerCurve.getTangentAt(Math.min(0.999, this.walkerProgress)).normalize();
+      const lookTarget = currentPos.clone().add(tangent);
+      this.walkerGroup.lookAt(lookTarget);
+
+      // Radar pulse ring animation
+      if (this.walkerRing) {
+        const scale = 1 + Math.sin(Date.now() * 0.01) * 0.25;
+        this.walkerRing.scale.set(scale, scale, scale);
+      }
+
+      // Smooth third-person camera chase
+      if (this.followWalkerCamera) {
+        const camOffset = new THREE.Vector3(-tangent.x * 32 + 18, 28, -tangent.z * 32 + 22);
+        const desiredCamPos = currentPos.clone().add(camOffset);
+        this.camera.position.lerp(desiredCamPos, 0.06);
+        this.controls.target.lerp(currentPos, 0.08);
+      }
+
+      // Notify callback for HUD and 2D map sync
+      if (this.onNavProgress) {
+        this.onNavProgress(this.walkerProgress, currentPos);
+      }
     }
 
     this.renderer.render(this.scene, this.camera);
